@@ -1,3 +1,2 @@
 ---
-ansible_python_interpreter: auto_silent
-updater_script: downloader
+mister_update_updater_script: downloader

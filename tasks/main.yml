@@ -9,7 +9,8 @@
   register: mister_update_script_exists
   when:
     - mister_version_exists.stat.exists
-    - updater_script == "downloader"
+    - mister_update_updater_script is defined
+    - mister_update_updater_script == "downloader"
 
 - name: Run update script
   ansible.builtin.raw: /media/fat/Scripts/downloader.sh
