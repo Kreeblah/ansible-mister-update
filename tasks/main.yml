@@ -14,12 +14,12 @@
 - name: Run update script
   ansible.builtin.raw: /media/fat/Scripts/downloader.sh
   check_mode: false
+  changed_when: true
   ignore_errors: true
   register: mister_update_script_output
   when:
     - mister_version_exists.stat.exists
     - mister_update_script_exists.stat.exists
-  no-changed-when: false
 
 - name: Display update results
   ansible.builtin.debug:
