@@ -1,0 +1,5 @@
+---
+- hosts: mister
+  remote_user: root
+  roles:
+    - mister_update
