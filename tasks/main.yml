@@ -8,6 +8,7 @@
     path: /media/fat/Scripts/downloader.sh
   register: mister_update_script_exists
   when:
+    - mister_version_exists is defined
     - mister_version_exists.stat.exists
     - mister_update_updater_script is defined
     - mister_update_updater_script == "downloader"
@@ -19,15 +20,20 @@
   ignore_errors: true
   register: mister_update_script_output
   when:
+    - mister_version_exists is defined
     - mister_version_exists.stat.exists
+    - mister_update_script_exists is defined
     - mister_update_script_exists.stat.exists
 
 - name: Display update results
   ansible.builtin.debug:
     msg: "{{ mister_update_script_output.stdout_lines }}"
   when:
+    - mister_version_exists is defined
     - mister_version_exists.stat.exists
+    - mister_update_script_exists is defined
     - mister_update_script_exists.stat.exists
+    - mister_update_script_output is defined
 
 - name: Wait for the MiSTer to finish any needed reboot
   ansible.builtin.wait_for_connection:
@@ -35,5 +41,7 @@
     sleep: 1
     timeout: 60
   when:
+    - mister_version_exists is defined
     - mister_version_exists.stat.exists
+    - mister_update_script_exists is defined
     - mister_update_script_exists.stat.exists
